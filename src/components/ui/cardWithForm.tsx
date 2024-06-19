@@ -23,30 +23,30 @@ import {
   SelectValue,
 } from "@/src/components/ui/select";
 import { Textarea } from "@/src/components/ui/textarea";
-
-interface IFormInput {
-  created_at: string;
-  event_date: string;
-  name: string;
-  status: string;
-  instance?: string;
-  participant_type: string;
-  intention: string;
-  intention_desc?: string;
-}
+import { resolver } from "@/src/lib/form-resolvers";
+import { IFormInput } from "@/src/lib/form-types";
 
 export function CardWithForm() {
   const [isLoading, setIsLoading] = useState<boolean>(false);
-  const { control, handleSubmit, watch, reset } = useForm({
+  const {
+    control,
+    handleSubmit,
+    watch,
+    reset,
+    formState: { errors },
+  } = useForm({
+    resolver: resolver,
     defaultValues: {
       created_at: moment().format("YYYY-MM-DD HH:mm:ss"),
       event_date: "",
       name: "",
+      contact: "",
       instance: "",
       status: "",
       participant_type: "",
       intention: "",
       intention_desc: "",
+      faculty_or_organitation: "",
     },
   });
 
@@ -61,7 +61,7 @@ export function CardWithForm() {
     });
 
     fetch(
-      "https://script.google.com/macros/s/AKfycby4bXVn8mskYJ0FdW0X-F-Pueo3PFhH_Zgc-EadfYd1axi59CgssIw2eumYT24TYzM9hQ/exec",
+      "https://script.google.com/macros/s/AKfycbwjhve60fntU3Q8NqVDeAEftvAu5TZpcV-WeT_1k2AAU4R65YJb-1ddgqcmGgYjerbX4w/exec",
       {
         method: "POST",
         body: formData,
@@ -82,6 +82,9 @@ export function CardWithForm() {
         setIsLoading(false);
       });
   };
+
+  console.log(936123, "errors", errors);
+
   return (
     <Card className="w-[350px]">
       <form onSubmit={handleSubmit(onSubmit)}>
@@ -100,6 +103,11 @@ export function CardWithForm() {
                   <DatePicker date={field.value} setDate={field.onChange} />
                 )}
               />
+              {errors?.event_date?.type === "required" && (
+                <p className="text-left text-red-500 font-normal text-sm">
+                  {errors?.event_date?.message}
+                </p>
+              )}
             </div>
             <div className="flex flex-col space-y-1.5">
               <Label htmlFor="name">Nama Lengkap</Label>
@@ -108,6 +116,34 @@ export function CardWithForm() {
                 control={control}
                 render={({ field }) => <Input id="name" {...field} />}
               />
+              {errors?.name?.type === "required" && (
+                <p className="text-left text-red-500 font-normal text-sm">
+                  {errors?.name?.message}
+                </p>
+              )}
+              {errors?.name?.type === "minLength" && (
+                <p className="text-left text-red-500 font-normal text-sm">
+                  {errors?.name?.message}
+                </p>
+              )}
+            </div>
+            <div className="flex flex-col space-y-1.5">
+              <Label htmlFor="contact">Contact (WA/Sosial Media)</Label>
+              <Controller
+                name="contact"
+                control={control}
+                render={({ field }) => <Input id="contact" {...field} />}
+              />
+              {errors?.contact?.type === "required" && (
+                <p className="text-left text-red-500 font-normal text-sm">
+                  {errors?.contact?.message}
+                </p>
+              )}
+              {errors?.contact?.type === "minLength" && (
+                <p className="text-left text-red-500 font-normal text-sm">
+                  {errors?.contact?.message}
+                </p>
+              )}
             </div>
             <div className="flex flex-col space-y-1.5">
               <Label htmlFor="status">Status</Label>
@@ -131,6 +167,11 @@ export function CardWithForm() {
                   </Select>
                 )}
               />
+              {errors?.status?.type === "required" && (
+                <p className="text-left text-red-500 font-normal text-sm">
+                  {errors?.status?.message}
+                </p>
+              )}
             </div>
             <div className="flex flex-col space-y-1.5">
               {status === "MAHASISWA" && (
@@ -171,6 +212,11 @@ export function CardWithForm() {
                       </Select>
                     )}
                   />
+                  {errors?.instance?.type === "required" && (
+                    <p className="text-left text-red-500 font-normal text-sm">
+                      {errors?.instance?.message}
+                    </p>
+                  )}
                 </>
               )}
               {["OTHER_STATUS", "BEKERJA"].includes(status) && (
@@ -181,6 +227,40 @@ export function CardWithForm() {
                     control={control}
                     render={({ field }) => <Input id="instance" {...field} />}
                   />
+                  {errors?.instance?.type === "required" && (
+                    <p className="text-left text-red-500 font-normal text-sm">
+                      {errors?.instance?.message}
+                    </p>
+                  )}
+                  {errors?.instance?.type === "minLength" && (
+                    <p className="text-left text-red-500 font-normal text-sm">
+                      {errors?.instance?.message}
+                    </p>
+                  )}
+                </>
+              )}
+              {["MAHASISWA"].includes(status) && (
+                <>
+                  <Label htmlFor="faculty_or_organitation">
+                    Fakultas/Organisasi
+                  </Label>
+                  <Controller
+                    name="faculty_or_organitation"
+                    control={control}
+                    render={({ field }) => (
+                      <Input id="faculty_or_organitation" {...field} />
+                    )}
+                  />
+                  {errors?.faculty_or_organitation?.type === "required" && (
+                    <p className="text-left text-red-500 font-normal text-sm">
+                      {errors?.faculty_or_organitation?.message}
+                    </p>
+                  )}
+                  {errors?.faculty_or_organitation?.type === "minLength" && (
+                    <p className="text-left text-red-500 font-normal text-sm">
+                      {errors?.faculty_or_organitation?.message}
+                    </p>
+                  )}
                 </>
               )}
             </div>
@@ -205,6 +285,11 @@ export function CardWithForm() {
                   </Select>
                 )}
               />
+              {errors?.participant_type?.type === "required" && (
+                <p className="text-left text-red-500 font-normal text-sm">
+                  {errors?.participant_type?.message}
+                </p>
+              )}
             </div>
             <div className="flex flex-col space-y-1.5">
               <Label htmlFor="intention">Tujuan</Label>
@@ -233,6 +318,11 @@ export function CardWithForm() {
                   </Select>
                 )}
               />
+              {errors?.intention?.type === "required" && (
+                <p className="text-left text-red-500 font-normal text-sm">
+                  {errors?.intention?.message}
+                </p>
+              )}
             </div>
             <div className="flex flex-col space-y-1.5">
               {intention === "other" && (
@@ -250,6 +340,16 @@ export function CardWithForm() {
                       />
                     )}
                   />
+                  {errors?.intention_desc?.type === "required" && (
+                    <p className="text-left text-red-500 font-normal text-sm">
+                      {errors?.intention_desc?.message}
+                    </p>
+                  )}
+                  {errors?.intention_desc?.type === "minLength" && (
+                    <p className="text-left text-red-500 font-normal text-sm">
+                      {errors?.intention_desc?.message}
+                    </p>
+                  )}
                 </>
               )}
             </div>
