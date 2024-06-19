@@ -88,7 +88,7 @@ export function CardWithForm() {
   console.log(8773123, "errors", errors);
 
   return (
-    <Card className="w-[350px]">
+    <Card className="w-full">
       <form onSubmit={handleSubmit(onSubmit)}>
         <CardHeader>
           <CardTitle>Save Street Child Malang</CardTitle>
@@ -194,24 +194,14 @@ export function CardWithForm() {
                         <SelectValue placeholder="Pilih Kampus" />
                       </SelectTrigger>
                       <SelectContent position="popper">
-                        <SelectItem value="UB">
-                          Universitas Brawijaya Malang
-                        </SelectItem>
-                        <SelectItem value="UM">
-                          Universitas Negeri Malang
-                        </SelectItem>
-                        <SelectItem value="UMM">
-                          Universitas Muhammadiyah Malang
-                        </SelectItem>
-                        <SelectItem value="UIN">
-                          Universitas Islam Negeri Malang
-                        </SelectItem>
-                        <SelectItem value="UNISMA">
-                          Universitas Islam Malang
-                        </SelectItem>
-                        <SelectItem value="POLINEMA">
-                          Polteknik Negeri Malang
-                        </SelectItem>
+                        <SelectItem value="UB">UB</SelectItem>
+                        <SelectItem value="UM">UM</SelectItem>
+                        <SelectItem value="UMM">UMM</SelectItem>
+                        <SelectItem value="MACHUNG">Ma Chung</SelectItem>
+                        <SelectItem value="UIN">UIN</SelectItem>
+                        <SelectItem value="UNISMA">UNISMA</SelectItem>
+                        <SelectItem value="POLINEMA">POLINEMA</SelectItem>
+                        <SelectItem value="UNMER_MALANG">UNMER</SelectItem>
                       </SelectContent>
                     </Select>
                   )}
