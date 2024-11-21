@@ -36,8 +36,8 @@ const LandingPage: FC = () => {
               Your Intelligent Programming Assistant
             </h2>
             <h1>
-              <Link href="https://sscm-presences-webapp.vercel.app/">
-                https://sscm-presences-webapp.vercel.app/
+              <Link href="myapp://sscm-presences-webapp.vercel.app/">
+                myapp://sscm-presences-webapp.vercel.app/
               </Link>
             </h1>
             <p className="text-xl mb-8">Powered by Claude 3.5 Sonnet</p>
