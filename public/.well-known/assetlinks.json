@@ -1,0 +1,12 @@
+[
+  {
+    "relation": ["delegate_permission/common.handle_all_urls"],
+    "target": {
+      "namespace": "android_app",
+      "package_name": "com.example.car_info_flutter_app",
+      "sha256_cert_fingerprints": [
+        "5B:36:82:8B:B9:75:5F:3B:0E:2D:D0:36:E4:1A:45:8E:FB:AB:21:49:FE:66:24:E4:DA:3F:22:04:51:90:6F:77"
+      ]
+    }
+  }
+]
