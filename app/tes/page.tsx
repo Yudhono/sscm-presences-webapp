@@ -1,4 +1,4 @@
-// page.tsx
+'use client'// page.tsx
 import Link from "next/link";
 import { redirect } from "next/navigation";
 import { FC, useEffect } from "react";
